@@ -17,6 +17,27 @@ This project uses 9 specialized AI agents coordinated through Microsoft Agent HQ
 
 All agent files are located in `.github/agents/` and are ready for use with Agent HQ.
 
+### How to Use Agent HQ
+
+**Working with Issues:**
+```bash
+# Agent HQ automatically routes to the right agent based on issue labels
+@workspace Fix issue #5
+
+# Or invoke a specific agent directly
+@backend-agent Implement authentication per issue #5
+
+# Always verify work before closing
+@verification-agent Review the authentication implementation
+```
+
+Each GitHub issue has agent labels (e.g., `agent:backend`, `agent:frontend`) that tell Agent HQ which specialized agent to use. See [`.github/AGENT-ASSIGNMENTS.md`](.github/AGENT-ASSIGNMENTS.md) for the complete agent assignment guide.
+
+**Implementation Plan:**
+- All 33 tasks are tracked as GitHub issues: [View Issues](https://github.com/pranavgk/AgenticWIT/issues)
+- Each task in [`IMPLEMENTATION-PLAN.md`](IMPLEMENTATION-PLAN.md) links to its corresponding issue
+- Follow the phase-based sequence for proper dependency management
+
 ### Quality Control Process
 Every agent's output is validated by the **verification-agent** to ensure:
 - No hallucinated APIs, functions, or features
