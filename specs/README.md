@@ -5,7 +5,7 @@ This document provides a complete set of agent instruction files for implementin
 ## Agent Files Created
 
 ### 1. Master Orchestration
-- **`agents.md`** - Main coordination strategy and agent workflow
+- **`coordinator-agent.agent.md`** - Main coordination strategy and agent workflow
 - Defines inter-agent communication protocols
 - Establishes quality gates and success metrics
 - Provides risk management and escalation procedures
@@ -16,49 +16,62 @@ This document provides a complete set of agent instruction files for implementin
 - **`cdn-specification.md`** - Comprehensive CDN architecture with accessibility optimizations
 
 ### 3. Specialized Agent Instructions
-- **`infrastructure-agent.md`** - Azure cloud infrastructure and DevOps
-- **`backend-agent.md`** - Node.js/TypeScript API development
-- **`frontend-agent.md`** - React/Next.js user interface
+- **`verification-agent.agent.md`** - Output validation and hallucination prevention
+- **`infrastructure-agent.agent.md`** - Azure cloud infrastructure and DevOps
+- **`backend-agent.agent.md`** - Node.js/TypeScript API development
+- **`frontend-agent.agent.md`** - React/Next.js user interface
+- **`database-agent.agent.md`** - PostgreSQL database design and optimization
+- **`security-agent.agent.md`** - Security framework and compliance
+- **`testing-agent.agent.md`** - Comprehensive testing and quality assurance
+- **`documentation-agent.agent.md`** - Technical and user documentation
 
 ### 4. Completed Agent Files
 
-#### Infrastructure Agent (`infrastructure-agent.md`)
+#### Verification Agent (`.github/agents/verification-agent.agent.md`)
+- Output validation and accuracy checking
+- Hallucination detection and prevention
+- Cross-agent integration verification
+- Code compilation and runtime validation
+- Specification compliance checking
+- Quality gate enforcement
+
+#### Infrastructure Agent (`.github/agents/infrastructure-agent.agent.md`)
 - Azure Kubernetes Service (AKS) deployment and management
 - Terraform Infrastructure as Code with accessibility considerations
 - GitHub Actions CI/CD with accessibility testing integration
 - Monitoring and alerting with accessibility metrics
 
-#### Backend Agent (`backend-agent.md`)
+#### Backend Agent (`.github/agents/backend-agent.agent.md`)
 - Node.js/TypeScript API with accessibility preference support
 - GraphQL and REST endpoints for assistive technology integration
 - Real-time notifications compatible with screen readers
 - Accessibility metadata APIs and user preference management
 
-#### Frontend Agent (`frontend-agent.md`)
+#### Frontend Agent (`.github/agents/frontend-agent.agent.md`)
 - React/Next.js with Microsoft accessibility standards
 - WCAG 2.1 AA compliance and Section 508 support
 - Windows High Contrast mode and Narrator optimization
 - Keyboard navigation and screen reader compatibility
 
-#### Database Agent (`database-agent.md`)
+#### Database Agent (`.github/agents/database-agent.agent.md`)
 - PostgreSQL schema design with accessibility metadata storage
 - User accessibility preferences and assistive technology settings
 - Accessibility audit trails and compliance tracking
 - Performance optimization for screen reader queries
 
-#### Security Agent (`security-agent.md`)
+#### Security Agent (`.github/agents/security-agent.agent.md`)
 - Microsoft accessibility compliance (Section 508, EN 301 549)
 - Authentication with accessibility context support
 - Security framework with assistive technology integration
 - Incident response for accessibility security events
 
-#### Testing Agent (`testing-agent.md`)
+#### Testing Agent (`.github/agents/testing-agent.agent.md`)
 - Microsoft Accessibility Insights integration
 - Comprehensive accessibility testing (WCAG 2.1 AA, Section 508)
 - Screen reader testing (NVDA, JAWS, Windows Narrator)
 - High contrast and cognitive accessibility validation
 
-#### Documentation Agent (`documentation-agent.md`)
+#### Documentation Agent (`.github/agents/documentation-agent.agent.md`)
 - API documentation with accessibility examples and best practices
 - User guides optimized for screen readers and assistive technology
 - Administrator guides for accessibility configuration and monitoring
@@ -68,26 +81,28 @@ This document provides a complete set of agent instruction files for implementin
 
 **Status: READY FOR MICROSOFT AGENT HQ DEPLOYMENT**
 
-All 7 specialized agents have been created with comprehensive Microsoft accessibility integration. The complete agent orchestration package is ready for deployment with Microsoft Agent HQ.
+All 9 specialized agents (including quality control) have been created with comprehensive Microsoft accessibility integration. The complete agent orchestration package is ready for deployment with Microsoft Agent HQ.
 
 ### Complete Agent Coverage
-- **Master Orchestration** (`agents.md`) - Complete coordination strategy
+- **Project Coordinator** (`.github/agents/coordinator-agent.agent.md`) - Complete coordination strategy
+- **Verification Agent** (`.github/agents/verification-agent.agent.md`) - Output validation and hallucination prevention
 - **Design Specifications** (`ui-mockups-spec.md`, `ux-specification.md`) - Detailed mockups and UX flows  
-- **Infrastructure Agent** (`infrastructure-agent.md`) - Azure cloud infrastructure and DevOps
-- **Backend Agent** (`backend-agent.md`) - Node.js API with accessibility support
-- **Frontend Agent** (`frontend-agent.md`) - React UI with Microsoft accessibility features
-- **Database Agent** (`database-agent.md`) - PostgreSQL with accessibility metadata
-- **Security Agent** (`security-agent.md`) - Security framework with accessibility compliance
-- **Testing Agent** (`testing-agent.md`) - Comprehensive accessibility testing
-- **Documentation Agent** (`documentation-agent.md`) - Accessible documentation and user guides
+- **Infrastructure Agent** (`.github/agents/infrastructure-agent.agent.md`) - Azure cloud infrastructure and DevOps
+- **Backend Agent** (`.github/agents/backend-agent.agent.md`) - Node.js API with accessibility support
+- **Frontend Agent** (`.github/agents/frontend-agent.agent.md`) - React UI with Microsoft accessibility features
+- **Database Agent** (`.github/agents/database-agent.agent.md`) - PostgreSQL with accessibility metadata
+- **Security Agent** (`.github/agents/security-agent.agent.md`) - Security framework with accessibility compliance
+- **Testing Agent** (`.github/agents/testing-agent.agent.md`) - Comprehensive accessibility testing
+- **Documentation Agent** (`.github/agents/documentation-agent.agent.md`) - Accessible documentation and user guides
 
 ## Key Features of the Agent System
 
 ### 1. Coordinated Development
 - **Phase-based delivery**: Foundation → Core → Integration → Polish
 - **Dependency management**: Clear handoffs between agents
-- **Quality gates**: Automated checks at each milestone
+- **Quality gates**: Automated checks at each milestone with verification agent validation
 - **Real-time collaboration**: Inter-agent communication protocols
+- **Hallucination prevention**: Verification agent validates all outputs before acceptance
 
 ### 2. Enterprise-Grade Implementation
 - **Scalability**: Designed for 10,000+ concurrent users
@@ -125,13 +140,24 @@ All 7 specialized agents have been created with comprehensive Microsoft accessib
 ### Agent Communication Flow
 ```mermaid
 graph TD
-    MO[Master Orchestrator] --> IA[Infrastructure Agent]
-    MO --> BA[Backend Agent] 
-    MO --> FA[Frontend Agent]
-    MO --> DA[Database Agent]
-    MO --> SA[Security Agent]
-    MO --> TA[Testing Agent]
-    MO --> DOC[Documentation Agent]
+    CO[Coordinator Agent] --> VA[Verification Agent]
+    CO --> IA[Infrastructure Agent]
+    CO --> BA[Backend Agent] 
+    CO --> FA[Frontend Agent]
+    CO --> DA[Database Agent]
+    CO --> SA[Security Agent]
+    CO --> TA[Testing Agent]
+    CO --> DOC[Documentation Agent]
+    
+    IA --> VA
+    BA --> VA
+    FA --> VA
+    DA --> VA
+    SA --> VA
+    TA --> VA
+    DOC --> VA
+    
+    VA --> CO
     
     IA --> BA
     IA --> FA
@@ -139,20 +165,21 @@ graph TD
     SA --> BA
     SA --> FA
     BA --> FA
-    TA --> ALL[All Agents]
-    DOC --> ALL
 ```
 
 ### Quality Assurance
+- **Output verification**: Every agent output validated by verification agent before acceptance
+- **Hallucination detection**: Automated checking for non-existent APIs, libraries, and features
 - **Daily standups**: Agent status synchronization
 - **Weekly integration**: Cross-agent testing and validation
-- **Milestone gates**: Quality and completeness checkpoints
+- **Milestone gates**: Quality and completeness checkpoints with verification sign-off
 - **Continuous monitoring**: Real-time progress and issue tracking
 
 ### Success Metrics
 - **Technical**: 99.9% uptime, <500ms response times, zero critical vulnerabilities
 - **Business**: 80% user adoption, >4.5/5 satisfaction, 50% productivity improvement
-- **Quality**: 90% test coverage, 100% accessibility compliance, complete documentation
+- **Quality**: 90% test coverage, 100% accessibility compliance, complete documentation, zero hallucinated implementations
+- **Verification**: 100% of agent outputs validated, <5% rejection rate, all integrations verified
 
 ## Deployment with Microsoft Agent HQ
 
@@ -163,7 +190,7 @@ graph TD
 4. **Stakeholder Alignment** on accessibility requirements and compliance standards
 
 ### Deployment Process
-1. **Upload Agent Package** - Load all 9 agent files into Microsoft Agent HQ
+1. **Upload Agent Package** - Load all 9 agent files from `.github/agents/` into Microsoft Agent HQ
 2. **Configure Dependencies** - Set up agent coordination workflows and communication
 3. **Initialize Infrastructure** - Deploy Azure resources using Infrastructure Agent
 4. **Phased Deployment** - Follow master orchestration strategy (Foundation → Core → Integration → Polish)
@@ -178,9 +205,9 @@ graph TD
 - **User Satisfaction**: >4.5/5 from users with accessibility needs
 
 ### Next Steps
-1. **Review and approve** the complete agent package
+1. **Review and approve** the complete agent package in `.github/agents/`
 2. **Set up Microsoft Agent HQ** environment with appropriate permissions
-3. **Initialize the Master Orchestrator** agent to begin coordination
+3. **Initialize the Project Coordinator** agent to begin coordination
 4. **Start foundation work** with Infrastructure and Database agents
 5. **Establish monitoring** and communication protocols for agent coordination
 
