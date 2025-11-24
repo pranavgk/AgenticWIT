@@ -3,6 +3,8 @@ import cors from '@fastify/cors';
 import helmet from '@fastify/helmet';
 import rateLimit from '@fastify/rate-limit';
 import jwt from '@fastify/jwt';
+import swagger from '@fastify/swagger';
+import swaggerUi from '@fastify/swagger-ui';
 import dotenv from 'dotenv';
 import { authenticate, authenticateOptional } from './middleware/auth.middleware';
 import { userRoutes } from './services/user/user.routes';
@@ -29,13 +31,73 @@ export async function buildApp(): Promise<FastifyInstance> {
     },
   });
 
+  // Register Swagger for API documentation
+  await app.register(swagger, {
+    openapi: {
+      openapi: '3.0.0',
+      info: {
+        title: 'AgenticWIT API',
+        description: 'Enterprise work item tracking system with accessibility-first design',
+        version: '0.1.0',
+        contact: {
+          name: 'AgenticWIT Team',
+          url: 'https://github.com/pranavgk/AgenticWIT',
+        },
+        license: {
+          name: 'MIT',
+          url: 'https://opensource.org/licenses/MIT',
+        },
+      },
+      servers: [
+        {
+          url: 'http://localhost:3001',
+          description: 'Development server',
+        },
+        {
+          url: 'https://api-staging.agenticwit.com',
+          description: 'Staging server',
+        },
+        {
+          url: 'https://api.agenticwit.com',
+          description: 'Production server',
+        },
+      ],
+      tags: [
+        { name: 'Authentication', description: 'User authentication and authorization' },
+        { name: 'Users', description: 'User profile management' },
+        { name: 'Health', description: 'System health checks' },
+      ],
+      components: {
+        securitySchemes: {
+          bearerAuth: {
+            type: 'http',
+            scheme: 'bearer',
+            bearerFormat: 'JWT',
+            description: 'JWT access token for authentication',
+          },
+        },
+      },
+    },
+  });
+
+  await app.register(swaggerUi, {
+    routePrefix: '/docs',
+    uiConfig: {
+      docExpansion: 'list',
+      deepLinking: true,
+      displayRequestDuration: true,
+    },
+    staticCSP: true,
+    transformStaticCSP: (header) => header,
+  });
+
   // Register plugins
   await app.register(helmet, {
     contentSecurityPolicy: {
       directives: {
         defaultSrc: ["'self'"],
         styleSrc: ["'self'", "'unsafe-inline'"],
-        scriptSrc: ["'self'"],
+        scriptSrc: ["'self'", "'unsafe-inline'"],
         imgSrc: ["'self'", 'data:', 'https:'],
       },
     },
@@ -60,28 +122,69 @@ export async function buildApp(): Promise<FastifyInstance> {
   app.decorate('authenticateOptional', authenticateOptional);
 
   // Health check
-  app.get('/health', async () => {
-    return {
-      status: 'healthy',
-      timestamp: new Date().toISOString(),
-      uptime: process.uptime(),
-      environment: process.env.NODE_ENV,
-    };
+  app.get('/health', {
+    schema: {
+      tags: ['Health'],
+      summary: 'Health check endpoint',
+      description: 'Check if the API server is running and healthy',
+      response: {
+        200: {
+          description: 'Server is healthy',
+          type: 'object',
+          properties: {
+            status: { type: 'string', enum: ['healthy'] },
+            timestamp: { type: 'string', format: 'date-time' },
+            uptime: { type: 'number', description: 'Server uptime in seconds' },
+            environment: { type: 'string', description: 'Current environment (development/staging/production)' },
+          },
+        },
+      },
+    },
+    handler: async () => {
+      return {
+        status: 'healthy',
+        timestamp: new Date().toISOString(),
+        uptime: process.uptime(),
+        environment: process.env.NODE_ENV,
+      };
+    },
   });
 
   // API info
-  app.get('/api', async () => {
-    return {
-      name: 'AgenticWIT API',
-      version: '0.1.0',
-      description: 'Enterprise work item tracking system',
-      endpoints: {
-        health: '/health',
-        api: '/api',
-        auth: '/api/auth',
-        users: '/api/users',
+  app.get('/api', {
+    schema: {
+      tags: ['Health'],
+      summary: 'API information',
+      description: 'Get basic information about the API and available endpoints',
+      response: {
+        200: {
+          description: 'API information',
+          type: 'object',
+          properties: {
+            name: { type: 'string' },
+            version: { type: 'string' },
+            description: { type: 'string' },
+            documentation: { type: 'string', description: 'Link to API documentation' },
+            endpoints: { type: 'object' },
+          },
+        },
       },
-    };
+    },
+    handler: async () => {
+      return {
+        name: 'AgenticWIT API',
+        version: '0.1.0',
+        description: 'Enterprise work item tracking system',
+        documentation: '/docs',
+        endpoints: {
+          health: '/health',
+          api: '/api',
+          docs: '/docs',
+          auth: '/api/auth',
+          users: '/api/users',
+        },
+      };
+    },
   });
 
   // Register routes
