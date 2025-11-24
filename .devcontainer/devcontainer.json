@@ -1,0 +1,108 @@
+// For format details, see https://aka.ms/devcontainer.json
+{
+  "name": "AgenticWIT Development",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "app",
+  "workspaceFolder": "/workspace",
+
+  // Configure tool-specific properties
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        // Node.js & TypeScript
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "ms-vscode.vscode-typescript-next",
+        
+        // Database
+        "mtxr.sqltools",
+        "mtxr.sqltools-driver-pg",
+        
+        // Docker
+        "ms-azuretools.vscode-docker",
+        
+        // Testing
+        "orta.vscode-jest",
+        "ms-playwright.playwright",
+        
+        // Git
+        "eamodio.gitlens",
+        
+        // React/Next.js
+        "dsznajder.es7-react-js-snippets",
+        
+        // Accessibility
+        "deque-systems.vscode-axe-linter",
+        
+        // Markdown
+        "yzhang.markdown-all-in-one",
+        
+        // REST Client
+        "humao.rest-client"
+      ],
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.codeActionsOnSave": {
+          "source.fixAll.eslint": "explicit"
+        },
+        "typescript.tsdk": "node_modules/typescript/lib",
+        "eslint.workingDirectories": [
+          { "directory": "./backend", "changeProcessCWD": true },
+          { "directory": "./frontend", "changeProcessCWD": true }
+        ]
+      }
+    }
+  },
+
+  // Features to add to the dev container
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "20"
+    },
+    "ghcr.io/devcontainers/features/git:1": {},
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {}
+  },
+
+  // Use 'forwardPorts' to make a list of ports inside the container available locally
+  "forwardPorts": [
+    3000, // Frontend (Next.js)
+    3001, // Backend API
+    5432, // PostgreSQL
+    6379, // Redis
+    9200  // Elasticsearch (future)
+  ],
+
+  // Port attributes
+  "portsAttributes": {
+    "3000": {
+      "label": "Frontend",
+      "onAutoForward": "notify"
+    },
+    "3001": {
+      "label": "Backend API",
+      "onAutoForward": "notify"
+    },
+    "5432": {
+      "label": "PostgreSQL",
+      "onAutoForward": "silent"
+    },
+    "6379": {
+      "label": "Redis",
+      "onAutoForward": "silent"
+    }
+  },
+
+  // Commands to run after the container is created
+  "postCreateCommand": "bash .devcontainer/post-create.sh",
+
+  // Set container user
+  "remoteUser": "node",
+
+  // Mount docker socket for docker-in-docker
+  "mounts": [
+    "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind"
+  ]
+}

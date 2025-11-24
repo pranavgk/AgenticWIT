@@ -1,6 +1,55 @@
 # AgenticWIT
 Enterprise work item tracking system built with Microsoft Agent HQ orchestration. Modern React/Node.js stack with Azure CDN, accessibility-first design, and comprehensive security.
 
+## 🚀 Quick Start (Local Development)
+
+### Prerequisites
+- **Docker Desktop** (for devcontainer)
+- **VS Code** with Dev Containers extension
+- **Git**
+
+### Setup
+```bash
+# Clone the repository
+git clone https://github.com/pranavgk/AgenticWIT.git
+cd AgenticWIT
+
+# Open in VS Code
+code .
+
+# When prompted, click "Reopen in Container"
+# Or press F1 → "Dev Containers: Reopen in Container"
+```
+
+The devcontainer will automatically:
+- ✅ Set up Node.js 20, PostgreSQL 15, Redis 7
+- ✅ Install all dependencies
+- ✅ Configure your development environment
+
+### Run the Application
+
+**Terminal 1 - Backend:**
+```bash
+cd backend
+cp .env.example .env.local
+npm install
+npm run dev
+```
+
+**Terminal 2 - Frontend:**
+```bash
+cd frontend
+cp .env.example .env.local
+npm install
+npm run dev
+```
+
+- **Frontend**: http://localhost:3000
+- **Backend API**: http://localhost:3001
+- **API Health**: http://localhost:3001/health
+
+📚 **Detailed Setup Guide**: See [`docs/LOCAL-DEVELOPMENT.md`](docs/LOCAL-DEVELOPMENT.md)
+
 ## Agent-Based Development
 
 This project uses 9 specialized AI agents coordinated through Microsoft Agent HQ:
