@@ -2,12 +2,7 @@
 
 import { create } from 'zustand';
 import { apiClient } from '@/lib/api-client';
-
-interface User {
-  id: string;
-  email: string;
-  name: string;
-}
+import { User } from '@/types/user';
 
 interface AuthState {
   user: User | null;
