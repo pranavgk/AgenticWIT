@@ -40,7 +40,7 @@ export const useThemeStore = create<ThemeStore>()(
 
       toggleTheme: () => {
         const currentTheme = get().theme;
-        const themes: Theme[] = ['light', 'dark', 'high-contrast'];
+        const themes: Theme[] = ['light', 'dark', 'high-contrast', 'system'];
         const currentIndex = themes.indexOf(currentTheme);
         const nextIndex = currentIndex === -1 ? 0 : (currentIndex + 1) % themes.length;
         const nextTheme = themes[nextIndex];

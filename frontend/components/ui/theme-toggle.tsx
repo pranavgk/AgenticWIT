@@ -17,7 +17,7 @@ export function ThemeToggle() {
   };
 
   return (
-    <div className="flex items-center space-x-2" role="group" aria-label="Theme selection">
+    <div className="flex items-center space-x-2" role="radiogroup" aria-labelledby="theme-label">
       <span className="text-sm text-gray-600 dark:text-gray-300" id="theme-label">
         Theme:
       </span>
@@ -29,7 +29,8 @@ export function ThemeToggle() {
               ? 'bg-primary-600 text-white'
               : 'bg-white text-gray-700 hover:bg-gray-100 dark:bg-gray-800 dark:text-gray-300'
           }`}
-          aria-pressed={theme === 'light'}
+          role="radio"
+          aria-checked={theme === 'light'}
           aria-label="Light theme"
         >
           ☀️ Light
@@ -41,7 +42,8 @@ export function ThemeToggle() {
               ? 'bg-primary-600 text-white'
               : 'bg-white text-gray-700 hover:bg-gray-100 dark:bg-gray-800 dark:text-gray-300'
           }`}
-          aria-pressed={theme === 'dark'}
+          role="radio"
+          aria-checked={theme === 'dark'}
           aria-label="Dark theme"
         >
           🌙 Dark
@@ -53,7 +55,8 @@ export function ThemeToggle() {
               ? 'bg-primary-600 text-white'
               : 'bg-white text-gray-700 hover:bg-gray-100 dark:bg-gray-800 dark:text-gray-300'
           }`}
-          aria-pressed={theme === 'high-contrast'}
+          role="radio"
+          aria-checked={theme === 'high-contrast'}
           aria-label="High contrast theme"
         >
           ◐ High Contrast
@@ -65,7 +68,8 @@ export function ThemeToggle() {
               ? 'bg-primary-600 text-white'
               : 'bg-white text-gray-700 hover:bg-gray-100 dark:bg-gray-800 dark:text-gray-300'
           }`}
-          aria-pressed={theme === 'system'}
+          role="radio"
+          aria-checked={theme === 'system'}
           aria-label="System theme preference"
         >
           💻 System

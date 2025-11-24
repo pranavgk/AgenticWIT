@@ -11,9 +11,12 @@ describe('Input Accessibility', () => {
 
   it('should show required indicator', () => {
     render(<Input label="Email" required />);
-    const requiredIndicator = screen.getByLabelText(/required/i);
-    expect(requiredIndicator).toBeInTheDocument();
-    expect(requiredIndicator).toHaveTextContent('*');
+    const input = screen.getByLabelText(/email/i);
+    expect(input).toBeRequired();
+    
+    // Visual indicator should be present but hidden from screen readers
+    const label = input.previousElementSibling;
+    expect(label?.textContent).toContain('*');
   });
 
   it('should display error message with ARIA', () => {

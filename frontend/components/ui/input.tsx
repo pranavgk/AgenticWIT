@@ -22,7 +22,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           >
             {label}
             {props.required && (
-              <span className="text-error-500 ml-1" aria-label="required">
+              <span className="text-error-500 ml-1" aria-hidden="true">
                 *
               </span>
             )}
