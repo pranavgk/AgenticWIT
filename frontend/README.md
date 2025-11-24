@@ -179,6 +179,9 @@ Accessibility is a first-class concern:
 - Color contrast ratios meet WCAG AA standards
 - Screen reader support is enabled
 - Focus indicators are visible
+- Multiple theme options (light/dark/high-contrast)
+
+**See [ACCESSIBILITY.md](./ACCESSIBILITY.md) for detailed guidelines.**
 
 Run accessibility tests:
 
@@ -211,14 +214,50 @@ const response = await apiClient.get('/users');
 
 Backend API documentation: `http://localhost:3001/docs`
 
-## Accessibility Guidelines
+## Accessibility
 
-1. **Keyboard Navigation**: All interactive elements must be accessible via keyboard
-2. **ARIA Labels**: Use appropriate ARIA attributes for screen readers
-3. **Focus Management**: Ensure visible focus indicators
-4. **Color Contrast**: Maintain WCAG AA compliance (4.5:1 for text)
-5. **Semantic HTML**: Use proper HTML elements
-6. **Alt Text**: Provide descriptive alt text for images
+AgenticWIT is built with accessibility as a first-class concern, following **WCAG 2.1 AA** standards. All components are designed to be usable by everyone, including people with disabilities.
+
+### Key Features
+
+✅ **Keyboard Navigation**: Full keyboard support for all interactive elements
+✅ **Screen Reader Support**: Proper ARIA labels and semantic HTML
+✅ **Theme System**: Light, Dark, High-Contrast, and System preference modes
+✅ **Focus Management**: Visible focus indicators and skip links
+✅ **Color Contrast**: All text meets WCAG AA standards (4.5:1 ratio)
+✅ **Form Accessibility**: Associated labels, error messages, and validation
+✅ **Live Regions**: Dynamic content updates announced to screen readers
+
+### Testing Accessibility
+
+```bash
+# Run all accessibility tests (57 tests)
+npm run test:a11y
+
+# Run full test suite including a11y
+npm test
+
+# Lint for accessibility issues
+npm run lint
+```
+
+### Documentation
+
+For detailed accessibility guidelines and testing procedures, see [ACCESSIBILITY.md](./ACCESSIBILITY.md).
+
+### Keyboard Shortcuts
+
+- `Tab` / `Shift+Tab` - Navigate between elements
+- `Enter` / `Space` - Activate buttons and links
+- `Escape` - Close dialogs and modals
+- `Ctrl+Shift+T` - Toggle theme (light/dark/high-contrast)
+
+### Supported Assistive Technologies
+
+- Screen Readers: NVDA, JAWS, VoiceOver
+- Keyboard Navigation: All modern browsers
+- High Contrast Mode: Windows High Contrast, Custom High Contrast Theme
+- Zoom: Up to 200% without loss of functionality
 
 ## Testing
 
