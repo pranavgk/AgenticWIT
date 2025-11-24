@@ -11,7 +11,7 @@ export default function DashboardPage() {
         <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
           <h2 className="text-lg font-semibold mb-2">Active Projects</h2>
           <p className="text-3xl font-bold text-primary-600">0</p>
-          <p className="text-sm text-gray-500 mt-2">Projects you're working on</p>
+          <p className="text-sm text-gray-500 mt-2">Projects you&apos;re working on</p>
         </div>
         <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
           <h2 className="text-lg font-semibold mb-2">Pending Reviews</h2>
