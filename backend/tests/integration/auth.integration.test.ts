@@ -8,8 +8,8 @@ describe('Authentication Integration Tests', () => {
   let request: any; // supertest.SuperTest<supertest.Test>
   
   const generateTestUser = () => ({
-    email: `test-${Date.now()}-${Math.random().toString(36).substr(2, 9)}@example.com`,
-    username: `testuser-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+    email: `test-${Date.now()}-${Math.random().toString(36).substring(2, 11)}@example.com`,
+    username: `testuser-${Date.now()}-${Math.random().toString(36).substring(2, 11)}`,
     password: 'Test123!@#',
     firstName: 'Test',
     lastName: 'User',

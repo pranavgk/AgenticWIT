@@ -8,6 +8,7 @@ import swaggerUi from '@fastify/swagger-ui';
 import dotenv from 'dotenv';
 import { authenticate, authenticateOptional } from './middleware/auth.middleware';
 import { userRoutes } from './services/user/user.routes';
+import { projectRoutes } from './services/project/project.routes';
 
 // Load environment variables
 dotenv.config();
@@ -189,6 +190,7 @@ export async function buildApp(): Promise<FastifyInstance> {
 
   // Register routes
   await app.register(userRoutes);
+  await app.register(projectRoutes);
 
   // Error handler
   app.setErrorHandler((error, request, reply) => {
