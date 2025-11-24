@@ -190,8 +190,10 @@ database/
 
 ---
 
-### Task 5: Authentication & User Service
+### Task 5: Authentication & User Service ✅ COMPLETE
 **GitHub Issue**: [#5](https://github.com/pranavgk/AgenticWIT/issues/5)
+**Status**: ✅ Completed on November 24, 2025
+**Commit**: 1c31df3
 
 **Owner**: Backend Agent + Security Agent
 
@@ -251,8 +253,9 @@ backend/
 
 ---
 
-### Task 6: Testing Framework Setup
+### Task 6: Testing Framework Setup ✅ COMPLETE
 **GitHub Issue**: [#6](https://github.com/pranavgk/AgenticWIT/issues/6)
+**Status**: ✅ Completed on November 24, 2025
 
 **Owner**: Testing Agent
 **Tasks**:
