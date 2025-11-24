@@ -4,6 +4,8 @@ import helmet from '@fastify/helmet';
 import rateLimit from '@fastify/rate-limit';
 import jwt from '@fastify/jwt';
 import dotenv from 'dotenv';
+import { authenticate, authenticateOptional } from './middleware/auth.middleware';
+import { userRoutes } from './services/user/user.routes';
 
 // Load environment variables
 dotenv.config();
@@ -58,6 +60,10 @@ async function registerPlugins() {
   await server.register(jwt, {
     secret: JWT_SECRET,
   });
+
+  // Register authentication decorators
+  server.decorate('authenticate', authenticate);
+  server.decorate('authenticateOptional', authenticateOptional);
 }
 
 // Register routes
@@ -81,10 +87,14 @@ async function registerRoutes() {
       endpoints: {
         health: '/health',
         api: '/api',
-        docs: '/api/docs',
+        auth: '/api/auth',
+        users: '/api/users',
       },
     };
   });
+
+  // Register user routes
+  await server.register(userRoutes);
 
   // Future routes will be added here
   // await server.register(userRoutes, { prefix: '/api/users' });
