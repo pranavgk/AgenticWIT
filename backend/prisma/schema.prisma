@@ -41,6 +41,8 @@ model User {
   // Relations
   refreshTokens     RefreshToken[]
   auditLogs         AuditLog[]
+  projectMemberships ProjectMember[]
+  ownedProjects     Project[]       @relation("ProjectOwner")
   
   @@index([email])
   @@index([username])
@@ -75,4 +77,54 @@ model AuditLog {
   @@index([action])
   @@index([timestamp])
   @@map("audit_logs")
+}
+
+model Project {
+  id                  String    @id @default(uuid())
+  name                String
+  key                 String    @unique // Short identifier like "PROJ"
+  description         String?
+  
+  // Project settings
+  isPublic            Boolean   @default(false)
+  isArchived          Boolean   @default(false)
+  
+  // Accessibility metadata
+  accessibilityLevel  String    @default("AA") // WCAG level: A, AA, AAA
+  highContrastMode    Boolean   @default(false)
+  screenReaderOptimized Boolean @default(false)
+  
+  // Owner
+  ownerId             String
+  owner               User      @relation("ProjectOwner", fields: [ownerId], references: [id], onDelete: Cascade)
+  
+  // Timestamps
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
+  
+  // Relations
+  members             ProjectMember[]
+  
+  @@index([ownerId])
+  @@index([key])
+  @@index([isArchived])
+  @@map("projects")
+}
+
+model ProjectMember {
+  id          String   @id @default(uuid())
+  projectId   String
+  project     Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role        String   @default("member") // owner, admin, member, viewer
+  
+  // Timestamps
+  joinedAt    DateTime @default(now())
+  
+  @@unique([projectId, userId])
+  @@index([projectId])
+  @@index([userId])
+  @@index([role])
+  @@map("project_members")
 }
