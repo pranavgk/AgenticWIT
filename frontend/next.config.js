@@ -14,6 +14,16 @@ const nextConfig = {
     formats: ['image/avif', 'image/webp'],
   },
 
+  // API rewrites for backend proxy
+  async rewrites() {
+    return [
+      {
+        source: '/api/:path*',
+        destination: `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'}/api/:path*`,
+      },
+    ];
+  },
+
   // Webpack configuration
   webpack: (config) => {
     // Add any custom webpack config here
